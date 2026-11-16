@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 
 import api from "../../../services/api";
 import { useEcommerceAuth } from "../../../context/EcommerceAuthContext";
+import AdminProfileMenu from "./AdminProfileMenu";
 import "./../../../pages/ecommerce/Ecommerce.css";
 
 function AdminDashboard() {
@@ -251,6 +252,7 @@ function AdminDashboard() {
               <RefreshCw size={16} />
               Refresh
             </button>
+            <AdminProfileMenu />
           </div>
         </div>
 

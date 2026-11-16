@@ -1170,7 +1170,14 @@
   font-size: 20px;
 }
 
-.pd-add-cart {
+.pd-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pd-add-cart,
+.pd-buy-now {
   width: 100%;
   min-height: 50px;
   display: flex;
@@ -1187,12 +1194,25 @@
   transition: 0.2s;
 }
 
-.pd-add-cart:hover:not(:disabled) {
-  background: #4e3ed6;
+.pd-buy-now {
+  background: #202039;
+}
+
+.pd-add-cart:hover:not(:disabled),
+.pd-buy-now:hover:not(:disabled) {
   transform: translateY(-2px);
 }
 
-.pd-add-cart:disabled {
+.pd-add-cart:hover:not(:disabled) {
+  background: #4e3ed6;
+}
+
+.pd-buy-now:hover:not(:disabled) {
+  background: #32324f;
+}
+
+.pd-add-cart:disabled,
+.pd-buy-now:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
@@ -3682,6 +3702,87 @@
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+.admin-profile-menu {
+  position: relative;
+}
+
+.admin-profile-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 5px 12px 5px 6px;
+  border: 1px solid #e3e2f3;
+  border-radius: 22px;
+  background: #fff;
+  color: #5145e5;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.admin-profile-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.admin-profile-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: #f0edff;
+}
+
+.admin-profile-dropdown {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  min-width: 190px;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid #e3e2f3;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(32, 43, 72, 0.14);
+}
+
+.admin-profile-dropdown-name {
+  color: #202b48;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-profile-email {
+  overflow: hidden;
+  color: #858ba1;
+  font-size: 12px;
+  text-overflow: ellipsis;
+}
+
+.admin-profile-dropdown button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  padding: 9px 5px;
+  border: 0;
+  border-top: 1px solid #eeeef5;
+  background: transparent;
+  color: #b42318;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-profile-dropdown button:hover {
+  color: #8f1d14;
 }
 
 .admin-back-link {

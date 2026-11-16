@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { toast } from "react-toastify";
 import api from "../../../services/api";
 import { useEcommerceAuth } from "../../../context/EcommerceAuthContext";
+import AdminProfileMenu from "./AdminProfileMenu";
 import "../../../pages/ecommerce/Ecommerce.css";
 
 const ORDER_STATUSES = [
@@ -136,6 +137,7 @@ function AdminOrders() {
           >
             Refresh Orders
           </button>
+          <AdminProfileMenu />
         </div>
       </div>
 

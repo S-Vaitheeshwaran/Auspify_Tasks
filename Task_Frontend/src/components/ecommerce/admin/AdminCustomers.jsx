@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { toast } from "react-toastify";
 import api from "../../../services/api";
 import { useEcommerceAuth } from "../../../context/EcommerceAuthContext";
+import AdminProfileMenu from "./AdminProfileMenu";
 import "../../../pages/ecommerce/Ecommerce.css";
 
 // Replace this with the actual GET endpoint from your Swagger UI.
@@ -113,6 +114,7 @@ function AdminCustomers() {
           >
             Refresh Customers
           </button>
+          <AdminProfileMenu />
         </div>
       </div>
 

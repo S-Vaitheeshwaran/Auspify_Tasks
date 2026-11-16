@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ShoppingBag } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -9,6 +9,7 @@ import "./Auth.css";
 
 function CustomerLogin() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { loginCustomer } = useEcommerceAuth();
 
   const [form, setForm] = useState({
@@ -58,7 +59,14 @@ function CustomerLogin() {
 
       toast.success("Customer login successful!");
 
-      navigate("/ecommerce");
+      const returnPath = location.state?.from;
+      const destination =
+        typeof returnPath === "string" &&
+        returnPath.startsWith("/ecommerce/products/")
+          ? returnPath
+          : "/ecommerce";
+
+      navigate(destination, { replace: true });
     } catch (error) {
       console.error("Customer login error:", error);
 

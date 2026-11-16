@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import {
@@ -8,6 +8,7 @@ import {
   Minus,
   Plus,
   ShoppingCart,
+  ShoppingBag,
   Truck,
   ShieldCheck
 } from "lucide-react";
@@ -19,6 +20,7 @@ import "./../../pages/ecommerce/Ecommerce.css";
 
 function ProductDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { customer, token, isCustomerAuthenticated } =
     useEcommerceAuth();
@@ -26,7 +28,7 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [adding, setAdding] = useState(false);
+  const [addingAction, setAddingAction] = useState(null);
   const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
@@ -80,9 +82,11 @@ function ProductDetails() {
     setQuantity((previous) => Math.max(1, previous - 1));
   };
 
-  const addToCart = async () => {
+  const addToCart = async (buyNow = false) => {
     if (!isCustomerAuthenticated || !customer || !token) {
-      toast.error("Please log in  before adding products.");
+      navigate("/ecommerce/login", {
+        state: { from: `/ecommerce/products/${id}` }
+      });
       return;
     }
 
@@ -97,7 +101,7 @@ function ProductDetails() {
     }
 
     try {
-      setAdding(true);
+      setAddingAction(buyNow ? "buyNow" : "cart");
 
       const response = await api.post(
         "/ecommerce/cart/items",
@@ -117,7 +121,11 @@ function ProductDetails() {
         throw new Error("Unable to add product to cart");
       }
 
-      toast.success("Product added to your cart!");
+      if (buyNow) {
+        navigate("/ecommerce/checkout");
+      } else {
+        toast.success("Product added to your cart!");
+      }
     } catch (error) {
       console.error("Add to cart error:", error);
 
@@ -127,7 +135,7 @@ function ProductDetails() {
         "Unable to add product to cart"
       );
     } finally {
-      setAdding(false);
+      setAddingAction(null);
     }
   };
 
@@ -239,18 +247,33 @@ function ProductDetails() {
               <strong>{formatPrice(product.price * quantity)}</strong>
             </div>
 
-            <button
-              className="pd-add-cart"
-              onClick={addToCart}
-              disabled={outOfStock || adding}
-            >
-              <ShoppingCart size={19} />
-              {adding
-                ? "Adding..."
-                : outOfStock
-                  ? "Out of Stock"
-                  : "Add to Cart"}
-            </button>
+            <div className="pd-actions">
+              <button
+                className="pd-add-cart"
+                onClick={() => addToCart()}
+                disabled={outOfStock || addingAction !== null}
+              >
+                <ShoppingCart size={19} />
+                {addingAction === "cart"
+                  ? "Adding..."
+                  : outOfStock
+                    ? "Out of Stock"
+                    : "Add to Cart"}
+              </button>
+
+              <button
+                className="pd-buy-now"
+                onClick={() => addToCart(true)}
+                disabled={outOfStock || addingAction !== null}
+              >
+                <ShoppingBag size={19} />
+                {addingAction === "buyNow"
+                  ? "Processing..."
+                  : outOfStock
+                    ? "Out of Stock"
+                    : "Buy Now"}
+              </button>
+            </div>
 
             <div className="pd-benefits">
               <div>

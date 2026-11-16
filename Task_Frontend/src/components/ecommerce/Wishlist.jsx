@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Heart, Package, ShoppingCart, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -8,6 +8,7 @@ import { useEcommerceAuth } from "../../context/EcommerceAuthContext";
 import "./../../pages/ecommerce/Ecommerce.css";
 
 function Wishlist() {
+  const navigate = useNavigate();
   const { customer, token, isCustomerAuthenticated } = useEcommerceAuth();
   const storageKey = `shopsphereWishlist_${customer?.id || "guest"}`;
   // Initialize from localStorage immediately; don't first render/save an empty list.
@@ -40,7 +41,7 @@ function Wishlist() {
 
   const addToCart = async (product) => {
     if (!isCustomerAuthenticated || !customer?.id || !token) {
-      toast.error("Please log in as a customer to add items to your cart");
+      navigate("/ecommerce/login");
       return;
     }
     if (Number(product.stockQuantity) <= 0) {

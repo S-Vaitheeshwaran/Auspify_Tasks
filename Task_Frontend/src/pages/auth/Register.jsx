@@ -1,16 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import api from "../../services/api";
-import { useAuth } from "../../context/AuthContext";
 
 import "./Auth.css";
 
 function Register({ onSwitch }) {
-  const navigate = useNavigate();
-  const { login } = useAuth();
-
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -60,9 +55,8 @@ function Register({ onSwitch }) {
         );
       }
 
-      login(authData);
-      toast.success("Account created successfully!");
-      navigate("/expenses", { replace: true });
+      toast.success("Account created successfully. Please log in.");
+      onSwitch();
     } catch (error) {
       toast.error(
         error.response?.data?.errors?.[0]?.details ||
