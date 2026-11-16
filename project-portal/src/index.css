@@ -1,0 +1,169 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  min-height: 100vh;
+  background: #111827;
+  color: white;
+  padding: 22px 15px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px 30px;
+}
+
+.sidebar-brand h2 {
+  font-size: 21px;
+}
+
+.menu-heading {
+  color: #94a3b8;
+  font-size: 11px;
+  padding: 0 10px;
+  margin-bottom: 12px;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  color: white;
+  background: #3730a3;
+}
+
+.sidebar-footer {
+  margin-top: 40px;
+  padding: 12px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.sidebar-footer small {
+  display: block;
+  margin-top: 6px;
+}
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.layout-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 110;
+  width: 250px;
+  min-width: 250px;
+}
+
+.layout-sidebar .sidebar {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.layout-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 109;
+  border: 0;
+  background: rgb(15 23 42 / 35%);
+}
+
+.layout-sidebar-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 16px;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #6254e7;
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgb(15 23 42 / 20%);
+}
+
+.app-layout--sidebar-open .layout-sidebar-toggle {
+  left: 266px;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 75px;
+    min-width: 75px;
+    padding: 15px 8px;
+  }
+
+  .sidebar-brand {
+    justify-content: center;
+    padding: 10px 0 25px;
+  }
+
+  .sidebar-brand h2,
+  .menu-heading,
+  .menu-item span,
+  .sidebar-footer {
+    display: none;
+  }
+
+  .menu-item {
+    justify-content: center;
+    padding: 13px 5px;
+  }
+
+  .layout-sidebar {
+    width: 75px;
+    min-width: 75px;
+  }
+
+  .app-layout--sidebar-open .layout-sidebar-toggle {
+    left: 91px;
+  }
+}
